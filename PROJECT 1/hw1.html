@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+     "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+<title>CSDS 132: Homework Assignment 1</title>
+</head>
+
+<body>
+<h2>Programming Project 1</h2>
+<h3>Due Friday, October 2 at 11:59pm</h3>
+
+<p>This first programming assignment is to give you practice writing classes, methods, fields and if statements as well as
+practice creating objects and calling methods.  Loops are not needed.  You should not use loops for the classes below, but you may use them as part of the testing report.
+All your classes should extend Object.</p>
+
+<p>In this project, you will be writing the necessary classes and methods to implement many of the features of
+a bank account.</p>
+
+
+<p><em><strong>IMPORTANT:</strong> Read the 
+<strong>Do's and Dont's</strong>
+in the <strong>Course Honor Policy</strong> found on the Canvas Pages. </em>
+</p>
+
+<h3>I. Code Readability (20% of your project grade)</h3>
+
+<p>Once upon a time, getting a program to work was the only goal of programming.  That was
+before computers took over the world.  Now, with highly complex software running much of our lives,
+the industry has learned that computer code is a written document that must be able to communicate
+to other humans what the code is doing.  If the program is too hard for a human to quickly understand,
+the industry does not want it.</p> 
+
+<p>Most companies enforce readable code by having very strict rules about how the program should look.
+This class will do the same, but will not be quite as strict so you can have some freedom for developing
+your own style.</p>
+
+<p><strong>To receive the full readability marks, your code must follow the following guideline:</strong>
+<ul>
+<li>All variables (fields, parameters, local variables) must be given appropriate and descriptive names.</li>
+<li>All variable and method names must start with a lowercase letter.  All class names must start with an uppercase letter.</li>
+<li>The class body should be organized so that all the fields are at the top of the file, the 
+constructors are next, and then the rest of the methods.</li>
+<li>Every statement of the program should be on it's own line and not sharing a line with another statement.</li>
+<li>All code must be properly indented (see Appendix F of the Lewis book for an example of good style).
+    The amount of indentation is up to you, but it should be at least 2 spaces, and it must be used
+    consistently throughout the code.</li>
+<li>You must be consistent in your use of {, }.  The closing } must be on its own line and indented
+the same amount as the line containing the opening {.</li>
+<li>There must be an empty line between each method.</li>
+<li>There must be a space separating each operator from its operands as well as a space after each comma.</li>
+<li>There must be a comment at the top of the file that includes both your name and a description of what the class represents.</li>
+<li>There must be a comment directly above each method that, in one or two lines, states <em>what</em>
+task the method is doing, not how it is doing it.  Do not directly copy the homework instructions.</li>
+<li>There must be a comment directly above each field that, in one line, states what the field is storing.</li>
+<li>There must be a comment either above or to the right of each non-field variable indicating what the variable is storing.  Any comments placed to the right should be aligned so they start on the same column.</li>
+</ul>
+</p>
+
+<hr>
+
+<h3>II. Program Testing Document (20% of your project grade)</h3>
+
+<p>Once upon a time, companies thought errors in code were only a minor inconvenience.
+That was before software glitches started killing people and destroying companies.
+Now, standard practice is that all code must be thoroughly verified before a company is willing to release it.
+At a large number of firms, programmers are required to <em>first</em> design the test cases the 
+program must pass and <em>then</em> start writing the code.  We will not be that strict in this 
+class, but you will need to test your code.</p>
+
+<p><strong>To receive full testing marks, you must write a testing report that shows that you thoroughly
+tested every method of the program.</strong>  The report should be a short English description for each
+test (what you are testing and what the expected result of the test is) followed by the 
+actual result of the test.  If you are using DrJava, you can enter the test into the interactions pane
+and then copy and paste the test code plus the result to your report.  If you fail to complete
+the program, your report should indicate how you would go about testing the incomplete methods.</p>
+
+<p><strong>Your grade on the testing report is how thoroughly you test your code, not how correctly
+your code runs.</strong>  If your code is not 100% correct then your report <em>should</em> show
+an incorrect result to some test.  Testing methods that do not have conditional statements should
+be pretty straightforward, but you need to put thought into testing methods with conditional
+statements so that each branch of the if-statement is tested.</p>
+
+<p><em>Hint 1</em>: You can test multiple methods with one test.  For example, you can test 
+each setter/getter method pair together or you can test constructors and getter methods together.</p>
+
+<p><strong><em>Hint 2: Do not put off testing to the end!</em></strong>  Test each method after you complete it.
+Many methods depend on other methods.  Delaying testing could mean cascading errors that cause your
+whole project to collapse.  Since you need to test anyway, copy the tests you do into a document, and
+you are most of the way to completing your report.</p>
+
+<p>If you are not using DrJava, you are allowed (but not required) create a separate class that tests your program.
+You must still write a testing report that documents the tests you do in this class.  Do not
+place testing code into a main method of the classes below.  That is not the purpose
+of a main method.</p>
+
+<hr>
+
+<h3>III: Programming (60% of your grade will be program correctness)</h3>
+
+<p>Create the following four classes:
+<ol><li><tt>BankAccount</tt><br>
+The <tt>BankAccount</tt> class will need instance fields to keep track of the current balance,
+the minimum balance that should be maintained in the account, the interest rate, the
+ATM fee, the overdraft fee, and more.  The class will have the following methods:
+<ol type="a">
+    <li><tt>getBalance</tt> <br> Takes no input and returns a <tt>double</tt>.
+    Returns the current balance for the account.</li>
+    <li><tt>getInterestRate</tt> and <tt>setInterestRate</tt> <br>
+    The interest rate is a <tt>double</tt>.
+    The interest rate should be stored as an appropriately named and typed variable.</li>
+    <li><tt>getMinimumBalance</tt> and <tt>setMinimumBalance</tt> <br>
+    The minimum balance threshold for the account is an <tt>int</tt> because the minimum balance is in whole dollars.
+    Use an appropriately named variable to store this value.
+    The minimum balance is a threshold, and if the balance of the account
+    falls below this value, a fee is charged to the account.
+    <li><tt>getATMFee</tt> and <tt>setATMFee</tt> <br>
+    The ATM fee is a <tt>double</tt>, and it is a fee 
+    that is charged whenever the
+    <tt>withdrawATM</tt> method successfully withdraws money from the account. </li>
+    <li><tt>getOverDraftFee</tt> and <tt>setOverdraftFee</tt><br> 
+    The overdraft fee is a <tt>double</tt> and it is a fee that is charged if, at the end of the day, the account's
+    balance is less than the account's minimum balance.  The fee is only charged once
+    per month. </li>
+    <li><tt>getBouncedCheckFee</tt> and <tt>setBouncedCheckFee</tt><br>
+    The bounced check fee is a <tt>double</tt> and the fee is charged if the <tt>withdrawDraft</tt> method attempts to
+    remove more money than is available in the account's balance.</li>
+    <li><tt>getWithdrawFee</tt> and <tt>setWithdrawFee</tt><br>
+    The withdraw fee is a <tt>double</tt> and is a fee charged per withdraw when the user has exceeded the maximum
+     number of monthly withdraws allowed on the account.</li>
+    <li><tt>getWithdrawLimit</tt> and <tt>setWithdrawLimit</tt><br>
+    The withdraw limit is an <tt>int</tt> value.  The limit is 0 if the account allows an unlimited number of withdraws.
+    Otherwise, the limit is the maximum number of free withdrawals allowed per month.</li>
+    <li><tt>deposit</tt> <br> Takes a single <tt>double</tt> as input and
+    adds this value to the account's balance.  There is no return value.</li>
+    <li><tt>withdraw</tt> <br>
+    Takes a single <tt>double</tt> as input.
+    If the current balance is greater or equal to the input amount,
+     then method returns <tt>true</tt> after the balance is reduced by this amount, 
+     the total number of withdrawals for the month is incremented, and the withdraw fee is applied (if the total number of withdrawals exceeds the limit).
+     Otherwise, the method returns <tt>false</tt> and nothing is removed from the account's balance.</li>
+    <li><tt>withdrawDraft</tt> <br>  Takes a single <tt>double</tt> as an input amount.
+    If the current balance is greater or 
+    equal to this amount, then the balance is reduced by the amount, the method returns
+    <tt>true</tt>, the total number of withdrawals for the month is incremented, and
+    the withdraw fee is applied (if the total number of withdrawals exceeds the limit).  Otherwise, the balance is reduced by the bounced check fee amount and the method
+    returns <tt>false</tt>.</li>
+    <li><tt>withdrawATM</tt> <br>  Takes a single <tt>double</tt> as an input amount.
+    If the current balance is greater or 
+    equal to the sum of this amount and the ATM fee, then the balance is reduced by this amount, the balance is
+    further reduced by the ATM fee, the method returns <tt>true</tt>,
+    the total number of withdrawals for the month is incremented, and the withdraw fee is applied (if the total number of withdrawals exceeds the limit).
+    Otherwise, the
+    method returns <tt>false</tt> and nothing is removed from the account's balance.
+    <em>Hint:</em> You can write <tt>withdrawATM</tt> with very little code if you call the <tt>withdraw</tt> method 
+    appropriately.</li>
+    <li><tt>incrementDay</tt><br>  This method takes no input and returns nothing.
+    You will need to add two variables to your class.  One variable will store the interest earned so
+    far this month.
+    Accounts with an interest rate earn interest daily, but the interest is only credited to the
+    account monthly.  The <tt>incrementDay</tt> method updates the amount that the account has
+    earned so far. <br>
+    You will also need a boolean variable that stores whether the overdraft fee has been charged this month.
+    If the account balance falls below the minimum balance, the overdraft fee should be charged, but the fee
+    should only be charged once per month.  This variable will be called the <em>overdraft flag</em> and the
+    variable will be <tt>true</tt> if the fee has been charged and <tt>false</tt> if the fee has not been charged.<br>
+    The method <tt>incrementDay</tt> should do the following.
+    <ol>  <li>If the account balance is
+    below the account minimum balance and the overdraft flag is <tt>false</tt>, then the balance is reduced 
+    by the overdraft fee, the overdraft flag is set to <tt>true</tt>, and no
+    interest is earned.</li>
+    <li>If the account balance is below the account minimum balance and the overdraft
+    flag is <tt>true</tt>, no interest is earned and nothing is deducted from the balance.</li>
+    <li>Otherwise, compute the interest earned that day by 
+    <ol><li>summing
+    the current balance and any interest earned so far this month,</li><li> multiplying this sum by the interest rate 
+    divided 
+    by 365 (this must be done appropriately),</li><li> and add then adding
+    this computed interest to the interest earned so far.</li></ol></li></ol></li>
+    <li><tt>incrementMonth</tt><br>  This method takes no input and returns nothing.
+    The <tt>incrementMonth</tt> function performs the following tasks.  <ol><li>The interest earned so
+    far is added to the account balance.</li> <li>The interest earned so far is reset to 0.</li>  <li>The overdraft flag is set to <tt>false</tt>.</li></ol></li>
+    </ol>
+    The <tt>BankAccount</tt> class should have two constructors:
+    <ol type="a"><li> A generic constructor that takes no values.  This constructor lets you use the account with all the fields set to their default values.</li>
+    <li>A constructor that takes five inputs.  The first is a <tt>double</tt> and is the interest rate for the account, the second is a <tt>int</tt> as is the minimum balance for the account, the third is a <tt>double</tt> and is the overdraft fee for the account, the fourth is a <tt>double</tt> and is the ATM fee for the account, and the fifth is a <tt>double</tt> and is the bounced check fee for the account.  </li></ol></li>
+<li><tt>CreditCardAccount</tt><br>
+The <tt>CreditCardAccount</tt> will have variables to store the current balance, the credit limit,
+the interest rate,
+and more.  The class will have the following methods:
+<ol type="a">
+    <li><tt>getCreditLimit</tt> and <tt>setCreditLimit</tt><br>
+    The credit limit is the maximum amount that may be borrowed.  It is an <tt>int</tt> because it is in whole dollars.  
+    This value should be stored in an appropriately named variable.</li>
+    <li><tt>getInterestRate</tt> and <tt>setInterestRate</tt><br>
+    The interest rate for the account.  The rate is a <tt>double</tt>.</li>
+    <li><tt>getMinMonthlyPayment</tt> and <tt>setMinMonthlyPayment</tt><br>
+    Sets the minimum amount that must be paid to avoid a late payment penalty.  The value is an <tt>int</tt>.</li>
+    <li><tt>getLatePaymentPenalty</tt> and <tt>setLatePaymentPenalty</tt><br>
+    The late payment penalty is a penalty charged on a late payment.  The value is an <tt>int</tt>.</li>
+    <li><tt>getBalance</tt><br>
+    Takes no input and returns the current balance for the account as a <tt>double</tt>.</li>
+    <li><tt>getMonthlyPayment</tt><br>
+    Takes no input and returns a <tt>double</tt> which represents the amount that the user needs to pay this month in order to pay off the credit card
+    in full.  This value is different than the balance, and the class should have an appropriately
+    named variable for this value.</li>
+    <li><tt>charge</tt><br>
+    This method takes a single <tt>double</tt> amount as input.
+    If the sum of the current balance and the amount that was input is less than or equal to
+    the credit limit, add the
+    amount to the current balance and return <tt>true</tt>.  Otherwise add nothing
+    to the current balance and return <tt>false</tt>.</li>
+    <li><tt>payment</tt><br>  This method takes a single <tt>double</tt> value and returns nothing.
+    Subtract the input value from the current balance, and add the input value to a variable
+    that stores the total amount paid so far this month.</li>
+    <li><tt>incrementDay</tt><br>  This method takes no input and returns nothing.
+    If the previous month's balance was not paid in full, the credit card charges interest on
+    the current balance after each day. To do this, the class will need two additional fields, a variable that
+    keeps track of the interest charged so far and a <tt>boolean</tt> variable that is a
+    paid-in-full flag that keeps track of whether the user has paid the balance in full.<br>
+    <tt>incrementDay</tt> works as follows:  
+    <ol>
+    <li>If the paid-in-full flag is <tt>false</tt> then
+    <ol><li>
+    sum the account balance and the interest charged so far,</li> <li>then multiply this sum by
+    the interest rate divided by 365,</li> <li>and add this value to the interest charged so far.</li></ol></li>
+    <li>If the paid-in-full flag is <tt>true</tt>, then there is nothing to do.</li></ol></li>
+    <li><tt>incrementMonth</tt><br>  This method takes no input and returns nothing.
+    <ol><li>
+    Add the interest charged so far to the account balance.</li>
+    <li> Reset the interest charged so far
+    to 0.</li>
+    <li>  If the total payment this month is greater than or equal to the monthly payment,
+    set the paid-in-full flag to <tt>true</tt>, otherwise set the flag to <tt>false</tt>.</li>
+    <li>If the minimum monthly payment is smaller than the monthly payment and the
+    total payment this month is less than the minimum monthly payment, add the late payment penalty
+    to the current balance.</li>
+    <li>Set the total payment this month to 0.</li>
+    <li> Set the monthly payment equal to the
+    current balance.</li></ol></li></ol>
+The <tt>CreditCardAccount</tt> class should have two constructors:
+<ol type="a"><li>
+A generic constructor that takes no input and lets you use the credit card account with all fields set to their 
+default values.</li>
+<li>A constructor that takes four inputs.  The first is an <tt>int</tt> and is the credit limit. The second is a <tt>double</tt>
+and is the interest rate.  The third is an <tt>int</tt> and is the minimum payment for each month, and the fourth is an
+<tt>int</tt> and is the late payment penalty.</li></ol></li>
+<li><tt>Account</tt><br>
+The <tt>Account</tt> class will have numerous fields and the following methods:
+<ol type="a"><li><tt>getFirstName</tt> and <tt>setFirstName</tt><br>
+    Gets and sets the first name on the account as a <tt>String</tt>.</li>
+    <li><tt>getLastName</tt> and <tt>setLastName</tt><br>
+    Gets and sets the last name for the account as a <tt>String</tt>.</li>
+    <li><tt>getStreetAddress</tt> and <tt>setStreetAddress</tt><br>
+    The street address (for example, house number and street name) for the account.
+    The street address should be stored as a single <tt>String</tt> variable.</li>
+    <li><tt>getZipCode</tt> and <tt>setZipCode</tt><br>
+    The zip code for the account's address, stored as a <tt>String</tt>.</li>
+    <li><tt>getSavingsAccount</tt> and <tt>setSavingsAccount</tt><br>
+    The <tt>Account</tt> class should have an
+    appropriately named field of type <tt>BankAccount</tt> that represents the savings account.  The method will assign and retrieve the value of this field.
+    (Note: the method will not create an account, but
+    will assume that the parameter is a correctly created account.  Also, note that there
+    really is no distinction between different kinds of accounts.  They are all <tt>BankAccount</tt>
+    objects.)</li>
+    <li><tt>getCheckingAccount</tt> and <tt>setCheckingAccount</tt><br>
+    The checking account is also a <tt>BankAccount</tt>, similar to the savings account.</li>
+    <li><tt>getMoneyMarketAccount</tt> and <tt>setMoneyMarketAccount</tt><br>
+    The money market account is also a <tt>BankAccount</tt>.</li>
+    <li><tt>getCreditCardAccount</tt> and <tt>setCreditCardAccount</tt><br>
+    We will assume there can only be one credit card account per account.  The type is <tt>CreditCardAccount</tt>.</li>
+    <li><tt>setDate</tt> and <tt>getDate</tt><br>  
+    Sets and returns a date associated with the account.  The type of the date should be the <tt>Date</tt> class created below.</li>
+    <li><tt>incrementDay</tt><br> This method takes no input and returns nothing.
+    <tt>incrementDay</tt> should do each of the following tasks in order:
+    <ol><li>Call the <tt>incrementDay</tt> method on the account's associated date.</li>
+        <li>For each account that is not <tt>null</tt>, call the account's <tt>incrementDay</tt> method.</li>
+        <li>If the result of calling the date's <tt>incrementDay</tt> method resulted in changing the month of the date,
+            then for each account
+        that is not <tt>null</tt>, call the account's <tt>incrementMonth</tt> method.</li> </ol></li>
+    <li><tt>equals</tt> Change the inherited method <tt>equals</tt> so that two accounts are considered equal if they have the same name (first and last), address, and zipcode.</li>
+    <li><tt>toString</tt> Change the inherited <tt>toString</tt> method so that the string representation of the account is
+     <em>name</em>, <em>address</em>, <em>zipcode</em> and then for each account that exists, the type of account and the balance of that account.  For example, if an account has a savings account and a credit card account but no money market or checking account, the method should return a string similar to: <em>"Harold Connamacher 502 Olin 44106. Savings: 1320.0, Credit Card: 516.3"</em>.</li>
+    </ol>
+    The <tt>Account</tt> class should have one constructor:<br>
+    <ol type="a">
+    <li>A constructor that takes five inputs: two <tt>String</tt>s representing the first and last name for the account, a <tt>String</tt> representing the street address, a <tt>String</tt> representing the zipcode, and a <tt>Date</tt>.  </li></ol></li>    
+ 
+
+<li><tt>Date</tt><br> The <tt>Date</tt> class will represent a date.  (Java has both Date and Calendar in the API, but both are more complex than needed for this homework.)
+The Date class should have the following methods:
+<ol type = "a">
+<li><tt>getDay</tt>: returns the day of the date.  The day should be a value between 1 and 31.</li>
+<li><tt>getMonth</tt>: returns the month of the date.  The month should be between 1 and 12.</li>
+<li><tt>incrementDay</tt>: adds 1 to the day of the date.  If the day exceeds the number of days for the month,
+the day is set to 1 and the month is incremented.  (Note that we will not be keeping track of years and so you should ignore leap years.)  If the month exceeds 12, the month is set to 1.</li>
+<li><tt>equals</tt>: Override the inherited equals method so that two dates are equal if they have the same day and month.</li>
+<li><tt>toString</tt>: Override the inherited toString method so that the string representation of the date is something nice involving the month and day.  The exact format is up to you.</li>
+</ol>
+The Date class should have one constructor:
+<ol type = "a">
+<li>It has input <tt>int day, int month</tt> and initializes the Date object with the given inputs.  You may assume that the inputs are all valid values.</li>
+</ol>
+</li>
+</ol></p>
+
+<h3>iV. Submitting Your Project</h3>
+<p>Submit the <tt>.java</tt> files (not the <tt>.class</tt> files or the <tt>.java~</tt> files) for each
+of your classes plus the testing report on Canvas.</p>
+
+
+</body>
+
+</html>
+

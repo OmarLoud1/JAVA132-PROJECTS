@@ -1,0 +1,131 @@
+Omar Loudghiri oxl51 EECS 132 Project 3 Testing Document
+Attached documents : 18 
+
+This is the testing document for the third project, most the tests will be conducted in the testing JUNIT documents of each class/interface.
+
+1.ChessPiece abstract Class testing:
+
+First we need to create an instance of a class that extends chessPiece because it is abstract. We will create an instance of king. 
+For that we will need an instance of a board.  After that we can test the non abstract methods:
+
+	1.Side: we test setSide and getSide by setting the side and asserting it is equal with the getter.
+
+	2.Label: we set the label and check the getter returns the same value.
+
+	3.Icon: since icon is an object, it can be replaced with a string since it is wider than object, we set icon to a string an make
+	sure the getter returns the sam thing
+
+	4.Location: we set the location with the set location method and make sure the getRow and getColumn return the setLocation values.
+
+	5.chessboard: there is no setBoard so we check that the getBoard returns the board set by the constructor
+
+	6.IsLegalMove: the is legal move method returns values from inherited abstract methods, it will be tested with each piece
+
+	7. Is not same side: this method needs two piece to work, to test it, we will create two pieces, one of the same side and another of another
+	side, then the method should return false for the first one and true for the second. The second test did not pass but it should return true 
+	if the piece isn't of the same side, however this method works when implemented in other pieces.
+
+2.Diagonal Move interface testing: DiagonalMoveTest. 
+ 	
+	1.diagonal move: we input a series of simple diagonal moves to make sure the function works, and then some non diagonal moves that return false.
+
+	2.Is Allowed: this method contains a loop for each possible direction a piece could be going. We will first test that a piece can move freely on
+	an empty chessboard. After that we run one element through the loop when we add one piece in each direction and check that it is not allowed, this method should return false.
+	After that we add many pieces in between and check that the method still returns false. The tests added piece both right at the beginning of the path and in the middle and also at the end
+	of the path of the diagonally moving piece, all those moves should return false.
+
+3. Straight Move Interface: StraightMoveTest: first we create an instance of a piece that moves vertically along with its chessboard
+
+	1. Is Straight: we test this method with two straight moves and another diagonal, the first and second should return true and the third should return false. 
+
+	2. vertical moves: we test one vertical and one non vertical
+
+	3. Is horizontal: we test one horizontal move and one non horizontal move
+	
+	4. The straight is allowed contains a loop for each possible direction a piece could be going. We will first test that a piece can move freely on
+	an empty chessboard. After that we run one element through the loop when we add one piece in each direction and check that it is not allowed, this method should return false.
+	After that we add many pieces in between and check that the method still returns false. The tests added piece both right at the beginning of the path and in the middle and also at the end
+	of the path of the piece moving vertically or horizontally, all those moves should return false.
+
+4. Chess pieces: Bishop piece: the bishop piece can only in a diagonal fashion, which is a function tested above, however we need to test its capture and non capture moves
+	1. NonCapture Move: we move the piece around, once diagonal and once not, the first should return true, the other should return false.
+
+	2 Capture move: should return true if it's moving diagonally towards a piece not of the same side. We place two pieces on the board, the first is on the same side as the testing bishop
+	the second one is not. Is legal capture move should return false on the piece from the same side and true on the piece of the opposite side.
+
+	3. isLegal Move should return the result of capture move if the destination has a piece, if it doesn't, it should return the result of the non capture move.
+
+5. King Piece: the king can move one square in every direction, it implements moves from diagonal and straight move which have already been tested. We will test the capture and non capture
+Moves of the king. 
+	1.Non Capture move, we set the king on an empty board, it can move if it's in a 1 square range, it returns false when the move is farther.
+
+	2.Capture move, we set the king in a board with two other pieces, one same side as the king, the other one is on the other side, this method will return false when the king moves to the first
+	piece, it will return true when moving to the second piece.
+ 
+	3.move done, we check that when the king moves the counter incremented.
+	
+	4. IsLegal Move should return the result of capture move if the destination has a piece, if it doesn't, it should return the result of the non capture move.
+
+        5. Castle move: the castle move is tested by setting the counter of the king moves to zero along with counter of the rook piece, if they both haven't moved and haven't been captured then the
+	castle move should return true.
+
+6. Knight piece: the knight piece can move in L shaped form in every direction, meaning it has 8 possible moves, it can capture the same way it moves. 
+
+	1. Non capture moves: we will try ever single L shaped movement in every direction, they all should be true.
+
+	2 Capture Move: a capture move is just a non capture but returns whether the piece it is going to is not of the same side,We place two pieces on the board, the first is on the same side as the testing knight the second one is not. Is legal capture move should return false on the piece from the same side and true on the piece of the opposite side.
+
+	3. isLegal Move should return the result of capture move if the destination has a piece, if it doesn't, it should return the result of the non capture move.
+
+	
+
+7.Pawn Piece: the pawn piece can only move by one square the direction opposite to the side it starts on, it can move two pieces if it is in its starting position, it also can become another piece once it
+Reaches the final row of the other side. 
+
+	1. Capture move: the capture move is diagonal, and a pawn can capture a piece of the other side. We will add a piece of two different sides and test that one can capture the other, then add a piece of the same side as the first one and test that it returns false.
+
+	2. Non Capture Moves: the non capture move is vertical on a south and a north piece. Check that a south piece can move north and a north piece can move south.
+
+	3. The move done method cannot be tested with Unit because it prompts a user response, when the pawn piece reaches the last row of the opposing side then the game prompts the user what piece
+	they want to have the pawn promoted to. When the pawn reaches the end, a Joption pane appears and changes that pawn to the piece selected 
+
+	3. isLegal Move should return the result of capture move if the destination has a piece, if it doesn't, it should return the result of the non capture move.
+
+8.Queen Piece, the queen can move in every direction and can capture the same way it moves:
+	
+	1.non capture: we check that the queen can move in each one of the 8 possible direction .
+
+	2capture move: is the same as the non capture move so we can just test how it behaves when the intended square is full
+
+	3. isLegal Move should return the result of capture move if the destination has a piece, if it doesn't, it should return the result of the non capture move.
+
+9.RookPiece: the rook has a straight move in every direction:
+	1.non capture: we test that a rook can first move horizontally and then vertically. And then test with a diagonal move that should return false.
+
+	2. Capture move, a capture move is just a non capture but returns whether the piece it is going to is not of the same side,We place two pieces on the board, the first is on the same side as the 	testing rook the second one is not. Is legal capture move should return false on the piece from the same side and true on the piece of the opposite side.
+	
+	3. isLegal Move should return the result of capture move if the destination has a piece, if it doesn't, it should return the result of the non capture move.
+
+	4.move done should implement one move to the move counter of the rook piece.
+
+10.EuropeanChessGame: this class is where the main method is located, when it is run a chessboard appears with all the pieces needed to play a chess game, it is a north south game.
+
+	1.legalPiecetoPlay: this method makes sure that the side of the piece is the allowed to play, it starts off with the north being allowed to play and then when a move is done it changes side, we 
+	check that only north pieces can move at first, and then when a move is done we check that a south piece can move
+
+	
+
+
+	
+
+
+
+
+	
+
+
+
+	
+
+
+

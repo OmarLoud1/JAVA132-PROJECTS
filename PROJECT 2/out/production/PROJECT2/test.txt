@@ -1,0 +1,109 @@
+Omar Loudghiri oxl51 EECS 132 Project 2
+
+Attached documents: HW2.java / HW2Test.java
+
+1.ReplacefirstK: a method that replaces the first k characters in an input string from one to another,
+ in the testing document we test that the method returns an error method when no string is input. It should say: string is null.
+ We then test that it works when it's only one character inputed. Afterwards we inout a whole sentence.
+ When inputing the first sentence we want to test that it can find the character to replace in the first and last char of the string,
+ as well as when it is in the middle.
+ All those stations are tested in the testing document.
+
+ 2. allChars: we test that this method works by first inputing a false input which is not a letter which should return
+ an error. we then look check to see that it can look for a single character which is a so it is at the beginning of the
+ string. we then check for a "many" input on it's own which is c which will need to return the same letter c.
+ Afterwards we test that that the method can return many chars for inputs that will make it look from the middle of the string
+ at d until the end of the string at z.
+ All those are tested in the testing document
+
+ 3.showCharOfString: we test that this method works by first testing when there is no valid input, which should return an
+ error message. we then test when there is only one character in the input string. the input is a and looks for a then it
+ should return a. We then test when we input many and want to look for something in the beginning and then for a char
+ in the middle of the input. finally we input a common string and many character to look for that will be in the middle
+ and in the end of both the input and the show string.
+ All those tests are implemented in the testing documents.
+
+ 4.Hangman: to test this method I will be using the Dr.Java Interaction's pane because it needs input. first of all we
+ check that if there is no correct input we return a false.
+ >HW2.hangman("", -1)
+ >false
+ Following that,  we launch the method with a test of inputing one charachter
+ > HW2.hangman("H", 1)
+ this returns a prompt window asking "what's your guess?", if we input "H" it returns
+>bad guesses0
+>H
+>true
+otherwise if we input another letter like "i" it returns:
+> YOU LOST
+>false
+
+now we test with a longer string:
+>HW2.hangman("Hello", 5)
+this will return a prompt message asking for an input.
+begining, if we input the first character of hello, it is gonna look for "H" in the begining of the string which returns
+input:H
+>H____
+>bad guesses0
+now if we input something in the middle of the string, like the letter "l", it should return this
+input:l
+>H_ll_
+>bad guesses0
+and finally, if we input something that is at the end of the string like "o" it will return
+input:o
+>H_llo
+>bad guesses0
+
+now let's make a mistake and see if the bad gusses counter works, we inut the character "f", this returns:
+input:f
+H_llo
+bad guesses1
+
+now there are two alternatives, eiter we keep guessing wrong and we loose with 4 other wrong inputs, which gives:
+input:w
+bad guesses1
+H_llo
+input:q
+bad guesses2
+H_llo
+input=w
+bad guesses3
+H_llo
+input=a
+bad guesses4
+H_llo
+input=z
+ YOU LOST
+false
+
+this test that the method does return false when we loose, there also the alternative of winning: which is tested here.
+H_llo
+bad guesses0
+input=e
+YOU WIN !
+Hello
+true
+
+5. hiddenString 1d: the tests for this method are in the testing class
+ First of all we test that if the input is not valid the method will return false along with an error
+message. Then we test when only one char and a string with only one character is input, this should return true.
+The many test will test that we can input many characters in the array and find the 2 first ones that will match with the
+input string. this test returns true. We then test to see if the method will work if the characters are in the middle of the array
+and then if it works with the end of the array. Afterwards we test if the backward function works on all first mid and last.
+and then we go through common usage tests. All those tests pass in the testing class.
+
+6. Hidden String 2d: tests are in testing class.
+First of all we begin with a zero input that should return false. Then we test that the method works with one input which will be
+'a' and it should return false. we then test when the input is many and we search for something horizontally. We test horizontal
+search in first mid and last. We then test vertical search in the first mid last options. all of the above work perfectly
+However the diagonal search is more bumpy, the tests in the testing document should work, where it searches for the traversal
+diagonal from the beginning and then from the end, it only works in the beggining and middle, as soon as we reach the last
+row it returns an error, the error is located in the 244th line which is unrelated to the diagonal search which is confusing
+however the algorithm should work on the diagonals and was tested with printing the the letters arround and it is supposed to work.
+I think the priblem comes from a bad gestion of the bounds of the array, maybe some part of the algorithm access out of bound
+information but I cannot see why nor where.
+
+
+
+
+
+

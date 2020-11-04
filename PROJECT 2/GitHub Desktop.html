@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+     "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+<title>CSDS/ECSE 132: Homework Project 2</title>
+</head>
+
+<body>
+<h2>Programming Project 2</h2>
+<h3>Due Friday, October 16 at 11:59pm Cleveland time</h3>
+
+<p><em><strong>IMPORTANT:</strong> Read the
+<strong>Do's and Dont's</strong>
+in the <strong>Course Honor Policy</strong> found on Canvas. </em>
+</p>
+
+<h3>I. Overview</h3>
+
+<p>This second programming assignment is to give you practice writing loops and manipulating strings and arrays.
+<strong>Do not use arrays on a problem involving Strings, and do not use Strings in a problem involving arrays.</strong></p>
+
+
+
+<h3>II. Code Readability (20% of your project grade)</h3>
+
+<p>As with the last project, you are required to have code that is easy for another person to read and understand.
+To accomplish that, the class will have certain rules about how your code should look.</p>
+
+<p><strong>To receive the full readability marks, your code must follow the following guideline:</strong>
+<ul>
+<li>You should place a comment at the top of the file that contains your name
+and a short description of the purpose of the class.</li>
+<li>You should place a <em>short</em> comment before (directly above) each method describing the method.  The comment should
+be only describe <em>what</em> the method does, not <em>how</em> it does it.  Do not simply copy the descriptions
+below for your comments.</li>
+<li>You should place a short comment directly above each field (should you really have any?)
+indicating the purpose of the variable.</li>
+<li>You should place a short comment above or to the right of each local variable explaining the purpose of the variable.  <em>Variables that are only used as loop indexes do not need to have comments.</em></li>
+<li>You should place a short comment above each loop explaining how the loop works.  Ideally, you should list the goal of the 
+loop, any required precondition for the loop, and if you can, a good iteration subgoal for the loop.</li>
+<li>Any other complicated code such as code the has lots of if statements or variables should contain <em>short</em> comments to help the reader.  The comments can either be above the code fragment or to the right, aligned in a column.</li>
+<li>Remember to use good style: everything should be indented nicely, variables should have good names, there should be a blank line between each method.</li>
+</ul></p>
+
+<hr>
+
+<h3>III. Program Testing Document (20% of your project grade)</h3>
+
+<p>As with the previous project, you are required to submit a document demonstrating that you thoroughly tested your program.
+In this case, it means documenting tests for each of the methods listed below.
+If you are unable to complete a method above, you should still
+describe tests that would test the method had it been completed.</p>
+
+<p>Hints for testing loops.  Your tests need to, at the minimum cover the following cases:
+<ol>
+<li><strong>Test 0, test 1, test many:</strong>  This means you have to test cases where the parameters, if they are integers,
+are 0, 1 or some value other than 1.  If the parameters are strings, you have to test strings of length 0, 1, and more than 1.
+If the strings must contain certain data, you need to test cases where they contain 0, 1, and more than 1 of the desired data.</li>
+<li><strong>Test first, last, and middle:</strong>  In cases where you have to search in or modify a string, you need to test
+cases where the item to be found or modified is the first character of the string, the last character of the string, or somewhere
+in the middle of the string.</li>
+</ol></p>
+
+<p><strong>What must go in the report:</strong> For each method below, your report should describe, in English, what &quot;<em>test 0, 1, many</em>&quot;
+and &quot;<em>test first, middle, last</em>&quot; mean for each of the methods.  Then, you should list the specific tests that you will do, what the expected
+output is, and then (if you completed the method) a cut-and-paste from DrJava showing the actual test. </p>
+
+<p><strong>JUnit</strong>: you recently learned about JUnit in lab.  JUnit will be required for future homeworks, and you are welcome
+to use it with this homework.  If you choose to write JUnit tests for your code,
+you do not need to include the actual tests in your report.  Your JUnit file should include comments with each test that link to the report and indicate what
+you are testing. For example, if your report indicates that the method requires a test with a string of length 0, your JUnit class should have such a test and
+a comment on the test noting that it is the test of a length 0 string that your report described.  Try to organize the JUnit class and report to make it easy for
+a reader to jump back and forth between the report and the tests.</p>
+
+<hr>
+
+
+<h3>IV. Java Programming (60% of your grade)</h3>
+
+<p><strong>Guidelines for the program</strong>:
+<ul>
+<li>All methods listed below must be <tt>public</tt> and <tt>static</tt>.</li>
+<li>If your code is using a loop to modify or create a string, you need to use the <tt>StringBuilder</tt> class from the API.</li>
+<li>Keep the loops simple but also efficient.  Remember that you want each loop to do only one "task" while also avoiding unnecessary traversals of the data.</li>
+<li>No additional methods are needed.  
+However, you may write additional <em>private</em> helper methods, but you still need to have efficient and simple algorithms. Do not write helper methods that do a significant number of <em>unnecessary</em>
+traversals of the data.</li>
+<li><strong><em>Important</em></strong>: you must not use either <tt>break</tt> or <tt>continue</tt> in your code.  These two commands are often used to compensate for
+a poorly designed loop.  Likewise, you must not write code that mimics what <tt>break</tt> does.  Instead, re-write your loop so that the loop logic does not need break-type behavior.</li>
+<li>While it may be tempting to hunt through the API to find classes and methods that can shorten your code, you may not
+do that.  The first reason is that this homework is an exercise in writing loops, not in using the API.  The second reason is that in a lot of cases, the API methods may shorten the <em>writing</em> of your code but increase its <em>running time</em>.
+The only classes and methods you can use are listed below.  Note: if a method you want to use from the API is not listed, you should <em>not</em> implement the method yourself so you can use it.
+Rather, you shoud look for the solution that does not need that method.</p>
+
+<p>You <em>are allowed</em> to use the following methods from the Java API:
+<ul><li>class String
+    <ul><li>length</li>
+        <li>charAt</li>
+   </ul></li>
+   <li>class StringBuilder
+   <ul><li>length</li>
+       <li>charAt</li>
+       <li>append</li>
+       <li>toString</li>
+   </ul></li>
+   <li>class Character
+    <ul><li>any method</li>
+   </ul></li>
+</ul>
+</p>
+</ul>
+</p>
+
+<p>Create a class called <tt>HW2</tt> that contains the following methods:
+
+<ol>
+<li><p><tt>replaceFirstK</tt>:  takes a <tt>String</tt>, two <tt>char</tt>s, and an <tt>int</tt> as input and returns a <tt>String</tt>
+that is the same as the parameter <tt>String</tt> except that first <tt>int</tt> occurrences of the first <tt>char</tt> parameter are replaced with the second <tt>char</tt> parameter.
+<pre>
+> HW2.replaceFirstK("Mississippi River", 'i', 'I', 3)
+"MIssIssIppi River"
+> HW2.replaceFirstK("Missouri River", 'r', '*', 3)
+"Missou*i Rive*"
+</pre>
+</p></li>
+
+<li><p><tt>allChars</tt>: takes two <tt>char</tt> parameters.  Creates a <tt>String</tt> containing all characters, in order,
+from the first <tt>char</tt> parameter (inclusive) to the last (inclusive).
+<pre>
+> HW2.allChars('d', 'm')
+"defghijklm"
+</pre>
+</p></li>
+
+<li><p><tt>showCharOfString</tt>:  takes two <tt>String</tt> parameters.  Outputs a new <tt>String</tt> that is the same as the
+first <tt>String</tt> except that: for each character of the
+first <tt>String</tt>, if the character is not in the second <tt>String</tt>, replace that character with the underscore ('_').  
+<pre>
+> HW2.showCharOfString("Missouri River", "s SR!r")
+"__ss__r_ R___r"
+</pre>
+</p></li>
+
+<li><p><tt>hangman</tt>:  Takes a <tt>String</tt> and an <tt>int</tt> and returns a <tt>boolean</tt>.  The method plays the game of hangman where the <tt>String</tt> is the word
+the player must guess and the <tt>int</tt> is the maximum number of "bad guesses" allowed.  The game should work as follows:
+  <ol><li>Creates a <tt>StringBuilder</tt> that stores all the letters guessed by the player.  The <tt>StringBuilder</tt> should initially be empty.</li>
+      <li>Has a loop that does the following:</li>
+      <ol><li>Calls the <tt>showCharOfString</tt> on the parameter <tt>String</tt> and a string containing all the guessed letters.</li>
+      <li>Uses <tt>System.out.println</tt> to print the <tt>String</tt> returned from the previous step as well as the total
+ number of "bad guesses" so far. (<em>For fun, you can print a graphical hangman instead of the number of bad guesses.</em>)</li>
+      <li>Uses <tt>javax.swing.JOptionPane.showInputDialog</tt> to get the next guessed letter from the user. The method should not crash if the user does not enter appropriate data.</li>
+      <li>If the letter has not yet been guessed, adds the letter to the <tt>StringBuilder</tt> containing the guessed letters and if the letter is not in the input <tt>String</tt>,
+           increases the count of "bad guesses" by one.</li></ol>
+      <li>The loop repeats until either: all letters of the parameter <tt>String</tt> are guessed or the number of "bad guesses"
+           equals the <tt>int</tt> parameter.</li></ol>
+   Finally, the method returns <tt>true</tt> if the player guessed all the letters of the input <tt>String</tt> without reaching the limit on "bad guesses", and false if the "bad guesses" limit was reached.
+   You should organize your loop so the return statement is after the loop terminates.</p></li>
+
+<li><p><tt>hiddenString</tt>: takes an array of <tt>char</tt> and a <tt>String</tt> as input parameters and and returns an <tt>boolean</tt>.
+The method returns <tt>true</tt> if we can find the input string inside the array by starting at any position of the array
+and reading either forwards or backwards.
+<pre>
+> HW2.hiddenString(new char[]{'a','b','r','a','c','a','d','a'}, "acad")
+true
+> HW2.hiddenString(new char[]{'a','b','r','a','c','a','d','a'}, "carb")
+true
+> HW2.hiddenString(new char[]{'a','b','r','a','c','a','d','a'}, "brad")
+false
+</pre>
+</p></li>
+
+<li><p>hiddenString</tt>: takes a 2-dimensional array of <tt>char</tt> and a <tt>String</tt> as input parameters and returns a <tt>boolean</tt>.
+The method returns <tt>true</tt> if we can find the input string inside the array by starting at any position of the array and reading in any straight direction (up, down, left, right, or diagonal).
+<pre>
+> HW2.hiddenString(new char[][]{{'a', 'b', 'c'},{'r','c','a','d'},{'b','r'}}, "bcc")
+true
+> HW2.hiddenString(new char[][]{{'a', 'b', 'c'},{'r','c','a','d'},{'b','r'}}, "ace")
+false
+> HW2.hiddenString(new char[][]{{'a', 'b', 'c'},{'r','c','a','d'},{'b','r'}}, "cad")
+true
+</pre>
+</p></li>
+
+<li><p><strong>Extra Credit (up to 10%)</strong><tt>capitalizeWords</tt> takes a <tt>String</tt> as input and returns a <tt>String</tt> as output.  Any word in the input string (a word is defined as a sequence of Enlish letters plus the hypen <tt>-</tt>)
+that contains any capitalized letter will have all its letters capitalized in the output string.
+<pre>
+> HW2.capitalizeWords("Guess what??  There are twenty-sIx letters in the English alphABEt!")
+"GUESS what??  THERE are TWENTY-SIX letters in the ENGLISH ALPHABET!"
+</pre>
+</p></li>
+
+</ol></p>
+
+<hr>
+
+<h3>V. Submitting Your Project</h3>
+<p>Submit the <tt>.java</tt> file (not the <tt>.class</tt> files or the <tt>.java~</tt> files) 
+of your class plus the testing report on Canvas.</p>
+
+</body>
+
+</html>
+
