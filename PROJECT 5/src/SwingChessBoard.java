@@ -20,11 +20,13 @@ import java.awt.event.ActionListener;
  * @author (additions) Omar Loudghiri
  */
 
-public class SwingChessBoard extends ChessBoard{
+public class SwingChessBoard implements ChessBoard{
 
+    private ChessGame gameRules;            //the rules of this game
+    private ChessPiece[][] pieces;          // the pieceson this board
     private JFrame board;                          // the game board
-    private JButton[][] squares;                   // the squares of the board
-    private SwingChessBoardDisplay boardDisplay;        // rules for how to draw the chess board
+    private final JButton[][] squares;                   // the squares of the board
+    private final SwingChessBoardDisplay boardDisplay;        // rules for how to draw the chess board
 
     /**
      * Builds a board of the desired size, the display parameters, and the rules for the chess game.
@@ -77,13 +79,6 @@ public class SwingChessBoard extends ChessBoard{
         }
     }
 
-    /**
-     * Changes the rules of the game
-     * @param newRules the new rules for the game
-     */
-    public void setGameRules(ChessGame newRules) {
-        this.gameRules = newRules;
-    }
 
     /**
      * Returns the number of rows in the board.
@@ -102,6 +97,15 @@ public class SwingChessBoard extends ChessBoard{
     }
 
     /**
+     * get the game played on this board
+     * @return the type of game played
+     */
+    @Override
+    public ChessGame getGameRules() {
+        return this.gameRules;
+    }
+
+    /**
      *  Adds a piece to the board at the desired location.  Any piece currently
      *  at that location is lost.
      *  @param piece   the piece to add
@@ -113,7 +117,7 @@ public class SwingChessBoard extends ChessBoard{
         // set the piece on the board, tell the piece where it is, and then use the display rules to display the square
         // run the display code on the event dispatch thread
 
-        super.addPiece(piece, row, col);
+        pieces[row][col] = piece;
         piece.setLocation(row, col);
 
         Runnable addPiece = new Runnable() {
@@ -146,7 +150,7 @@ public class SwingChessBoard extends ChessBoard{
         // remove the piece from the board, use the display rules to show an empty square,
         // and run the display code on the event dispatch thread
 
-        ChessPiece save = super.removePiece(row,col);
+        ChessPiece save = getPiece(row, col);
 
         Runnable removePiece = new Runnable() {
             public void run() {
@@ -260,5 +264,28 @@ public class SwingChessBoard extends ChessBoard{
         }
         return false;
     }
+
+
+    /**
+     * checks if there is a piece on this location
+     * @param row the row to examine
+     * @param column the column to examine
+     * @return true if there is a piece, false if there is no piece
+     */
+    public boolean hasPiece(int row, int column){
+        return pieces[row][column] != null;
+    }
+
+    /**
+     * retrieves the piece on a specific location
+     * @param row the row to examine
+     * @param column the column to examine
+     * @return the piece that is on that location
+     */
+    public ChessPiece getPiece(int row, int column){
+        return pieces[row][column];
+    }
+
+
 
 }

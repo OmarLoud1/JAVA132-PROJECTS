@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EuropeanChessTest extends EuropeanChess {
     //first we create a board for the piece to move in
-    ChessBoard board = new SwingChessBoard(new EuropeanChessDisplay(), new EuropeanChess());
+    ChessBoard board = new SwingChessBoard(new SwingEuropeanChessDisplay(), new EuropeanChess());
     // then we create a north and a south king piece
     KingPiece kingN = new KingPiece(board, ChessGame.Side.NORTH, 4, 4);
     KingPiece kingS = new KingPiece(board, ChessGame.Side.SOUTH, 0, 4);

@@ -88,7 +88,7 @@ public class EuropeanChess implements ChessGame{
         return 8;
     }
 
-    @Override
+
     public static void startGame(ChessBoard board) {
 
         //make the north initial pieces

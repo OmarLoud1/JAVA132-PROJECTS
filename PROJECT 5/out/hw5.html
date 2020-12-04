@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+     "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+<title>CSDS 132: Homework Assignment 5</title>
+</head>
+
+<body>
+<h2>Programming Project 5</h2>
+<h3>Due Sunday, December 6 at 11:59pm</h3>
+
+<p><strong>As Monday, December 7 is Reading Day and that day should to be spent preparing for final exams, <em>no late assignments will be accepted</em>.</strong></p>
+
+<h3>I. Overview</h3>
+
+<p>The goal of this assignment is to build a JavaFX application and to work on creating type hierarchies.  The end result should be really
+neat: a chess game that works with both the Swing and JavaFX graphical libraries and can choose between different variations of chess.</p>
+
+<hr />
+
+<h3>II. Code Readability (20% of your project grade)</h3>
+
+<p>To receive the full readability marks, your code must follow the following guideline:
+<ul>
+<li>All variables (fields, parameters, local variables) must be given appropriate and descriptive names.</li>
+<li>All variable and method names must start with a lowercase letter.  All class names must start with an uppercase letter.</li>
+<li>The class body should be organized so that all the fields are at the top of the file, the
+constructors are next, the non-static methods next, and the static methods at the bottom with the main method last.</li>
+<li>There should not be two statements on the same line.</li>
+<li>All code must be properly indented (see Appendix F of the Lewis book for an example of good style).
+    The amount of indentation is up to you, but it should be at least 2 spaces, and it must be used
+    consistently throughout the code.</li>
+<li>You must be consistent in your use of {, }.  The closing } must be on its own line and indented
+the same amount as the line containing the opening {.</li>
+<li>There must be an empty line between each method.</li>
+<li>There must be a space separating each operator from its operands as well as a space after each comma.</li>
+<li>There must be a comment at the top of the file that <strong>is in proper JavaDoc format</strong> and
+includes both your name and a description of what the class represents.  The comment should include tags for the author.
+(See Appendix J of the Lewis book of pages 226-234 if the Evans and Flanagan book.)</li>
+<li>There must be a comment directly above each method (including constructors) that <strong>is in proper JavaDoc format</strong>
+ and states <em>what</em> task the method is doing, not how it is doing it.  The comment should include
+ tags for any parameters, return values and exceptions, and the tags should include appropriate comments
+ that indicate the purpose of the inputs, the value returned, and the meaning of the exceptions.</li>
+<li>There must be a comment directly above each field that, in one line, states what the field is storing.</li>
+<li>There must be a comment either above or to the right of each non-field variable indicating what the variable is storing.  Any comments placed to the right should be aligned so they start on the same column.</li>
+<li>There must be a comment above each loop that indicates the purpose of the loop.  Ideally, the comment would
+consist of any preconditions (if they exist) and the subgoal for the loop iteration.</li>
+<li>Any code that is complicated should have a short comment either above it or aligned to the right that
+explains the logic of the code.</li>
+</ul>
+</p>
+
+<hr />
+
+<h3>III. Program Testing (20% of your project grade)</h3>
+
+<p>You are to write a test report that indicates the <em>types</em> of tests needed to thoroughly test
+your project.  The tests should demonstrate that all parts of your code behave correctly.  Any unit of your program involving conditional statements
+will need tests that go through each branch of the execution.  Any unit of your program involving loops will need tests that cover the
+&quot;test 0, test 1, test many&quot; and &quot;test first, test middle, test last&quot; guidelines.  Your testing report should
+<em>not</em> list the actual tests and results.</p>
+
+<p>You are to have a JUnit test class or classes that implement as many of the tests as you can.
+You should have comments, names, or other indicators in your JUnit tests that easily link the JUnit tests back to the testing report.</p>
+
+<p><em>The testing report must be separate from the JUnit class.</em> In most companies, the testing document
+will be written in a style that allows both programmers and non-programmers to read it and recognize whether all the
+needed test cases were included.</p>
+
+<p><strong>Note</strong> that you will not be able to (easily) test methods involving user input or screen output with JUnit.  For these parts of your program,
+your testing report should indicate the specific tests you did to test these routines.</p>
+
+<p><em>Hint:</em>  Because doing JUnit tests on JavaFX is challenging, you should keep the game mechanics completely separate from the 
+graphical display code.  This is what you were to do in Project 3, and you should continue doing that in Project 5.  This way, you can use
+JUnit to test all the pieces and game mechanics.</p>
+
+<hr />
+
+
+<h3>IV. Java Programming (60% of your grade)</h3>
+
+<p>For this project you will take the Indo-European version of chess that you created for project 3 and modify it in the following ways:
+<ol>
+<li>You will make a JavaFX chessboard for the game and create the classes so that the chess pieces can easily work with either the
+Java Swing version of the chessboard or the JavaFX version of the chessboard.</li>
+<li>Add in additional pieces and a new implementation of the board display so that users can choose to play either Indo-European chess or 
+Chinese Xiangqi chess.</li>
+</ol>
+</p>
+
+<h4>What you must do:</h4>
+
+<ol>
+<li>Create the types listed below to create a JavaFX chessboard</li>
+<li>Modify the chessboard that was provided to in in Project 3 so that it can fit in a hierarchy with the JavaFX chessboard</li>
+<li>Create the Xiangqi chesspieces and add them into the chess pieces hierarchy you made in Project 3.  You are welcome to redesign that
+heirarchy.</li>
+<li>Create display and game types below so users can create and start either an Indo-European or a Xiangqi chess game.</li>
+</ol>
+
+<h4>What you do not have to do:</h4>
+
+<ol>
+<li>You do not have to get the Indo-European chess pieces to work.</li>
+<li>You do not have to get the Indo-European chess game to play correctly.</li>
+</ol>
+
+
+<h4>You are to create the following types</h4>
+<p>You are welcome to add additional types and/or methods as you feel is appropriate.</p>
+
+<ol>
+<li><p><strong><tt>ChessBoard</tt>:</strong>  The ChessBoard will now represent an arbitrary chessboard that does not depend on either Swing
+or JavaFX.  The ChessBoard type will have the following methods:
+<ol type="a">
+<li><tt>ChessGame getGameRules</tt>: returns the <tt>ChessGame</tt> being played on this board.</li>
+<li><tt>void addPiece(ChessPiece piece, int row, int column)</tt>: adds a chess piece to a given row and column position on the board.</li>
+<li><tt>ChessPiece removePiece(int row, int column)</tt>: removes the piece at the given row and column from the board and returns the removed piece.</li>
+<li><tt>boolean hasPiece(int row, int column)</tt>: returns <tt>true</tt> if there is a piece on the board at the given row and column.</li>
+<li><tt>ChessPiece getPiece(int row, int column)</tt>: returns the chess piece located on the board at the given row and column.</li>
+<li><tt>boolean squareThreatened(int row, int column, ChessPiece piece)</tt>: returns <tt>true</tt> if a player from a different <tt>Side</tt>
+as the chess piece can make a legal capture move to the given row and column on the board.</li>
+</ol>
+</p>
+</li>
+
+<li><p><strong><tt>SwingChessBoard</tt>:</strong> The SwingChessBoard is an implementation of the ChessBoard type for the Java Swing
+package.  (You should take the ChessBoard.java file from Project 3 and <em>slightly</em> modify it to make the SwingChessBoard.)
+The SwingChessBoard should have the following <em>constructor</em>:
+<ol type="a">
+<li>SwingChessBoard(SwingChessBoardDisplay boardDisplay, ChessGame chessGame):  The constructor should create a grid of <tt>JButton</tt>s
+for the board.  You can use the <tt>GridLayout</tt> on a <tt>JPanel</tt> to organize the buttons, and place the <tt>JPane</tt> onto a <tt>JFrame</tt> .
+The constructor should use the <tt>ChessGame</tt> input to determine the number of rows and columns in the grid, and it should use the
+<tt>SwingChessBoardDisplay</tt> to determine how to display each button.
+<p>Each button should have an <tt>ActionListener</tt> that:
+<ol><li>If there is a piece on that button, it calls the <tt>ChessGame</tt> <tt>legalPieceToPlay</tt> method, and if it returns true,
+it uses the <tt>SwingChessBoardDisplay</tt> to highlight that button.</li>
+<li>On the second click, it calls the <tt>ChessGame</tt> <tt>makeMove</tt> method to move the piece from the highlighted square to 
+the new location on the board.  If the method returns false, and if the <tt>ChessGame</tt> <tt>canChangeSelection</tt> method
+returns true, the square is unhighlighted (using the <tt>SwingChessBoardDisplay</tt>), and the user can select a new piece.
+Otherwise, the square remains highlighted and the user must select another square to move the piece. </li>
+</ol>
+</p>
+At the end of the constructor, the JFrame used to display the chessboard should be made visible.
+</ol>
+The <tt>SwingChessBoard</tt> should override the various methods of <tt>ChessBoard</tt> as needed and it should use the 
+<tt>SwingChessBoardDisplay</tt> to update the <tt>JButton</tt> for the square any time a piece is added or removed from the button.</p>
+</li>
+
+<li><p><strong><tt>SwingChessBoardDisplay</tt>:</strong> The SwingChessBoardDisplay indicates how the SwingChessBoard should display
+its squares.  The SwingChessBoardDisplay should have the following methods:  
+<ol type="a">
+<li><tt>void displayEmptySquare(JButton button, int row, int column)</tt> does the display for an empty square at the given row and column</li>
+<li><tt>void displayFilledSquare(JButton button, int row, int column, ChessPiece piece)</tt> does the display for a square at the given row and column with the given piece on it.</li>
+<li><tt>void highlightSquare(boolean highlight, JButton button, int row, int column, ChessPiece piece)</tt> adds or removes a highlight from a square on the chess board.  The square is at the given row and column, and the piece is the piece currently on the square.</li>
+</ol>
+Note that this class is essentially the ChessBoardDisplay.java file from Project 3.
+</p></li>
+
+<li><p><strong><tt>SwingEuropeanChessDisplay</tt>:</strong>  An implementation of the <tt>SwingChessBoardDisplay</tt> for Indo-European chess.
+The default is to make the squares alternate background colors.  You can do anything you want for the display of a piece, but my suggestion
+is to set the JButton background to be the color of that piece's side, and make the text of the JButton the piece's label.
+Note that this class is the EuropeanChessDisplay.java file from Project 3.
+</p></li>
+
+<li><p><strong><tt>ChessGame</tt>:</strong> The ChessGame contains methods indicating how the game is supposed to be played.  The 
+ChessGame type will have the following nested type:
+<ol type="a">
+<li> <tt>enum Side</tt>: determines the "player" for the game.  The possible sides should be <tt>NORTH</tt>, <tt>SOUTH</tt>, <tt>EAST</tt>, and <tt>WEST</tt>.</li>
+</ol>
+The ChessGame will have the following methods:
+<ol type="a">
+<li><tt>boolean legalPieceToPlay(ChessPiece piece, int row, int column)</tt>: returns true if it is legal to move the given piece from its current position to the given row and column.</li>
+<li><tt>boolean makeMove(ChessPiece piece, int row, int column)</tt>: Will move the given piece on the board from its current position to the given fow and column, if it is legal and possible to make that move.  
+The method will return <tt>true</tt> if the piece was successfully moved and <tt>false</tt> if the piece could not be moved.</li>
+<li><tt>boolean canChangeSelection(ChessPiece piece)</tt> returns <tt>true</tt> if the player is allowed to change their choose on what piece to move.  The input piece is the piece the player selected to move.</li>
+<li><tt>int getNumRows()</tt>: Returns the number of rows in this chess game.</li>
+<li><tt>int getNumColumns()</tt>: Returns the number of columns in this chess game.</li>
+<li><tt>void startGame(ChessBoard board)</tt>: Calling this method will take the given board, place all the initial pieces for the game onto 
+the board in their correct starting positions, and sets any internal fields (if needed) so that the game can begin.</li>
+</ol>
+Note that the ChessGame type is slightly changed from what you did in Project 3 with three new methods added.
+</p></li>
+
+<li><p><strong><tt>EuropeanChess</tt>:</strong> This type extends <tt>ChessGame</tt>.  It is the class you created in Project 3 with three
+new methods added.</p></li>
+
+<li><p><strong><tt>JavaFXChessBoard</tt>:</strong> The JavaFXChessBoard is an implementation of the ChessBoard type for the Java FX
+package.  The JavaFXChessBoard should extend <tt>Application</tt>, and  
+the JavaFXChessBoard should have its start method do the following:
+<ol type="a">
+<li>Get the command line arguments using the <tt>getParameters().getRaw()</tt> method of <tt>Application</tt>.</li>
+<li>Use the first command line argument to determine what version of chess to use.  
+If the argument is "chess" this will be Indo-European chess, and if it is "xiangqi" it will be Chinese Xiangqi chess.  You are welcome
+to add more versions if you want.</li>
+<li>Create an instance of <tt>JavaFXChessBoardDisplay</tt> and the <tt>ChessGame</tt> for the desired game.  If the desired game is "chess",
+these should be <tt>JavaFXEuropeanChessDisplay</tt> and <tt>EuropeanChess</tt>, and if the desired game is "xiangqi" these should be
+<tt>JavaFXXiangqiDisplay</tt> and <tt>Xiangqi</tt>.</li>
+<li>Create a 2-dimensional array of <tt>Button</tt>s for the board.  Place the buttons in <tt>GridPane</tt> that you then place in the 
+<tt>Scene</tt> that is used for the primary stage.  Use the
+<tt>JavaFXChessBoardDisplay</tt> to determine how to display each button.</li>
+<li>Each button should have an <tt>EventHandler</tt> that:
+<ol><li>If there is a piece on that button, it calls the <tt>ChessGame</tt> <tt>legalPieceToPlay</tt> method, and if it returns true,
+it uses the <tt>JavaFXChessBoardDisplay</tt> to highlight that button.</li>
+<li>On the second click, it calls the <tt>ChessGame</tt> <tt>makeMove</tt> method to move the piece from the highlighted square to 
+the new location on the board.  If the method returns false, and if the <tt>ChessGame</tt> <tt>canChangeSelection</tt> method
+returns true, the square is unhighlighted (using the <tt>JavaFXChessBoardDisplay</tt>, and the user can select a new piece.
+Otherwise, the square remains highlighted and the user must select another square to move the piece. </li>
+</ol>
+At the end of the start method, the <tt>startGame</tt> method of the <tt>ChessGame</tt> is called and the primary stage is displayed.
+</ol>
+The <tt>JavaFXChessBoard</tt> should override the various methods of <tt>ChessBoard</tt> as needed and it should use the 
+<tt>JavaFXChessBoardDisplay</tt> to update the <tt>Button</tt> for the square any time a piece is added or removed from the button.</p>
+<p>You are welcome to use the Swing version of the chess board as a template for the JavaFX version.  One thing to note is that there is 
+a lot of thread code in the Swing version to make sure that the routines to draw the board are executed in the correct thread.
+JavaFX does a better job of ensuring that the correct thread is used for each method (this is why it uses the <tt>start</tt> method instead of 
+the constructor to initialize it), and so you do not have to implement any thread routines in your JavaFX code.</p>
+</li>
+
+<li><p><strong><tt>JavaFXChessBoardDisplay</tt>:</strong> The JavaFXChessBoardDisplay indicates how the JavaFXChessBoard should display
+its squares.  The JavaFXChessBoardDisplay should have the following methods:  
+<ol type="a">
+<li><tt>void displayEmptySquare(Button button, int row, int column)</tt> does the display for an empty square at the given row and column</li>
+<li><tt>void displayFilledSquare(Button button, int row, int column, ChessPiece piece)</tt> does the display for a square at the given row and column with the given piece on it.</li>
+<li><tt>void highlightSquare(boolean highlight, Button button, int row, int column, ChessPiece piece)</tt> adds or removes a highlight from a square on the chess board.  The square is at the given row and column, and the piece is the piece currently on the square.</li>
+</ol>
+</p></li>
+</p>
+
+<li><p><strong><tt>JavaFXEuropeanChessDisplay</tt>:</strong>  An implementation of the <tt>JavaFXChessBoardDisplay</tt> for Indo-European chess.
+The default is to make the squares alternate background colors. 
+To set the background of a <tt>Button</tt> you use the <tt>setBackground</tt> method that takes an array of <tt>BackgroundFill</tt> instances.
+For each blank square, I recommend making a <tt>BackgroundFill</tt> with the desired <tt>Color</tt> and use 
+<tt>CorderRadii.EMPTY</tt> and <tt>Insets.EMPTY</tt>.  For the pieces, you would add a second <tt>BackgroundFill</tt> to the background
+but this time use the color for the piece's side, and set the <tt>CorderRadii</tt> and <tt>Insets</tt> so that the piece is rounded and
+allows the background color behind it to be visible.  Then make the button's text be the label for the piece.  See the API for this
+to make some sense.</p></li>
+</p></li>
+
+<li><p><strong><tt>JavaFXXiangqiDisplay</tt>:</strong>  An implementation of the <tt>JavaFXChessBoardDisplay</tt> for Xiangqi.
+The default is to make the squares a light gray color and use a darker gray for the middle three squares on the top three rows and bottom
+thres rows of the board (assuming your game is north to south).   
+To set the background of a <tt>Button</tt> you use the <tt>setBackground</tt> method that takes an array of <tt>BackgroundFill</tt> instances.
+For each blank square, I recommend making a <tt>BackgroundFill</tt> with the desired <tt>Color</tt> and use 
+<tt>CorderRadii.EMPTY</tt> and use a small <tt>Insets</tt> value so the grid on the board is visible.  
+For the pieces, you would add a second <tt>BackgroundFill</tt> to the background
+but this time use the color for the piece's side, and set the <tt>CorderRadii</tt> and <tt>Insets</tt> so that the piece is rounded and
+allows the background color behind it to be visible.  Then make the button's text be the label for the piece.  See the API for this
+to make some sense.</p>
+<p>You can have the constructor for the JavaFXXiangqiDisplay pass in the number of rows and columns of the board so you don't have to use
+magic numbers.</p>
+<p>Note that in traditional Xiangqi, the game is played on the lines of the grid instead of the centers of the square.  You are welcome to change
+the game visuals it can appear as if each button is actually a corner of the grid, but that is not required.</li>
+</p></li>
+
+<li><p><strong><tt>Xiangqi</tt>:</strong> This type extends <tt>ChessGame</tt>.  The type is almost the same as the <tt>EuropeanChess</tt>
+type with the following changes:
+<ul><li>The board has 10 rows and 9 columns (assuming you are playing north to south).</li>
+    <li>You should prevent a move if it creates a <em>facing kings</em> situation: the two kings can "see" each other with no pieces of either
+team between them.</li>
+</ul>
+Just as with Indo-European chess, you are not allowed to make a move that places your king into check, but you do not have to implement this.</p>
+</li>
+</ol>
+
+<p>You are welcome to create a <tt>SwingXiangqiDisplay</tt> so that implements the Xiangqi visuals for the Swing application, but you are
+not required to do this.</p>
+
+<h4>The New Pieces</h4>
+<p>The rest of the classes are new chess pieces to add to your hierarchy.  You should place these pieces into the same hierarchy as your
+chess pieces from Project 3.  You are welcome to rearrange the heirarchy if needed, and you do not have to get the pieces from Project 3
+working.</p>
+
+<p>Just as with Indo-European chess, a piece cannot move onto a square with a piece of the same side.  If it moves onto a square containing 
+a piece of the opposing side, that opposing piece is captured and removed from the board.</p>
+
+<p>In the descriptions below, I am assuming the north/south game.  You should rotate the descriptions for an east/west game.</p>
+
+<ul>
+<li><p><tt>XiangqiKingPiece</tt>: a king can move one square vertically or horizontally.  A Xiangqi king cannot move out of the three center columns of the board nor out of the bottom (or top) three rows of the board. 
+I recommend using "X" as the label for the Xiangqi king.</p></li>
+
+<li><p><tt>GuardPiece</tt>: a guard can move one square diagonally.  A guard cannot move out of the three center columns of the board nor out of
+the bottom (or top) three rows of the board.  I recommend using "G" as the label for the guard.</p></li>
+
+<li><p><tt>ElephantPiece</tt>: an elephant can move exactly two squares diagonally on each move.  The elephant cannot jump over a piece so the first diagonal square of the move must be empty.
+Elephants cannot cross the center of the board (i.e. they are restricted to the top or bottom half of the rows assuming a north-south game).  I recommend using "E" as the label for the elephant,</p></li>
+
+<li><p><tt>HorsePiece</tt>: a horse/knight can move exactly two squares on each move.  The first square must be a horizontal or vertical move, and that is followed by a diagonal move with the result being an &quot;L&quot; shaped move.  The horse/knight cannot jump over pieces so the first square of the move
+must be vacant.  I recommend using "H" as the label for the horse/knight.</p></li>
+
+<li><p><tt>RookPiece</tt>: a rook can move any number of spaces vertically or horizontally.  The rook cannot jump over pieces so all squares on the
+move (except possibly the last one) must be empty.  I recommend using "R" as the label for the rook piece.  Note that this is exactly the
+same piece as the Indo-European rook.  I include it here for completeness.</p></li>
+
+<li><p><tt>CannonPiece</tt>: a cannon can move any number of spaces vertically or horizontally.  If the cannon is not capturing a piece, all the squares on its move must be empty.  If the cannon is capturing, it must jump over exactly one piece (of either <tt>Side</tt>) on its move.
+I recommend using "C" as the label for the cannon piece.</p></li>
+
+<li><p><tt>SoldierPiece</tt>: a soldier can move exactly one space vertically toward the opposite side of the board from its starting side.
+It cannot move backwards toward its own side.
+Once the pawn crosses the middle of the board, the pawn can also move one space horizontally (in either direction).
+I recommend using "S" as the label for the soldier piece.</p></li>
+
+
+</ul>
+
+
+<h3>Extra Credit:</h3>
+
+<p>If you decide to do the extra credit, <em>you must state in the Canvas comments what you did</em>.  Don't make us hunt
+through your code to figure out what extra you did.</p>
+
+<p>Make further improvements to the aesthetics and play of the game.
+Extra credit will be awarded to improvements that require coding challenge, a lot of work with the API,
+or creativity.  <strong>Note:</strong> Do not look up online Xiangqi games and copy their code or style.
+This extra credit is for you to have some fun and be creative.  It is an academic integrity offense if you
+copy code or ideas from online versions of the game.</p>
+
+</p>
+
+
+</body>
+
+</html>
+

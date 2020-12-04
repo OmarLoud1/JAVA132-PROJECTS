@@ -50,5 +50,4 @@ public interface ChessGame {
    */
   public int getNumColumns();
 
-  public void startGame(ChessBoard board);
 }
