@@ -1,0 +1,494 @@
+Omar Loudghiri oxl51 EECS 132 Project 1
+
+Attached documents: Account, AccountTest, BankAccount, BankAccountTest, CreditCardAccount, CreditCardAccountTest
+Date, DateTest.
+
+Testing Document:
+
+////////// I. BANK ACCOUNT     /////////////////////////////////
+
+Testing for the BankAccount class;
+I will be creating a testing class for my class called BankAccountTest.
+First of all at the beginning of the testing I created an instance of my class that I called Account1.
+     BankAccount Account1 = new BankAccount();
+
+1.BALANCE: We can then proceed to test the methods setBalance and getBalance and deposit(deposit can only add to the
+balance, thus the usefulness of setBalance) if we set the balance to be the double 3000.0 and we execute getBalance the
+return value should be 3000.0. We then deposit 500.0 more and getBalance expecting 3500.0.
+    void testBalance() {
+        Account1.setBalance(3000.0);
+        assertEquals(3000.0,Account1.getBalance());
+        Account1.deposit(500.0);
+        assertEquals(3500.0,Account1.getBalance());
+    }
+the tests passed on intelliJ.
+
+2.INTEREST: We can test both setInterestRate and getInterestRate with this method which passes if tested:
+    void testInterestRate() {
+        Account1.setInterestRate(12);
+        assertEquals(12, Account1.getInterestRate());
+        }
+
+3.MINIMUM BALANCE: if we setMinimumBalance to 300, getMinimumBalance should get the same value, and the test passes.
+    void testMinimumBalance() {
+        Account1.setMinimumBalance(300);
+        assertEquals(300, Account1.getMinimumBalance());
+    }
+
+4.ATM FEE: if we setAtmFee to 5.0, getAtmFee return the same value according to the test:
+    void testAtmFee() {
+        Account1.setAtmFee(5.0);
+        assertEquals(5.0, Account1.getAtmFee());
+    }
+
+5.OVERDRAFT FEE: if we setOverDraftFee equal to 15.0, the getOverDraftFee method should return 15.0 too, test passes
+    void testOverDraftFee() {
+        Account1.setOverDraftFee(15.0);
+        assertEquals(15.0,Account1.getOverDraftFee());
+    }
+
+6.BOUNCED CHECK FEE: if we set the bounced check fee to 20.0, the getter should return the same value, which test passes.
+    void testBouncedCheckFee() {
+        Account1.setBouncedCheckFee(20.0);
+        assertEquals(20.0, Account1.getBouncedCheckFee());
+    }
+
+7.WITHDRAW FEE: if we set the withdraw fee to 7.50, the getWithdraw fee should return 7.50 too. This test passes.
+    void testWithdrawFee() {
+        Account1.setWithdrawFee(7.50);
+        assertEquals(7.50, Account1.getWithdrawFee());
+    }
+
+8.WITHDRAW LIMIT: using the setWithdrawLimit method to make the value 10, the getter method should return 10 as well.
+This test passes.
+    void testWithdrawLimit() {
+        Account1.setWithdrawLimit(10);
+        assertEquals(10, Account1.getWithdrawLimit());
+    }
+
+9.WITHDRAW: we set the withdraw limit to test the withdraw limit function, we also set the withdraw fee that will be
+charged when the counter reaches the limit.step 1:deposits and withdraws the same amount, so the withdraw function
+returns true. step2: deposits a higher amount to check another possibility. step3: the counter has now reached the
+Withdraw limit, checks if the 250.0 was withdrawn in addition to the withdraw fee of 12.0. 271.0-262.0=9.0.
+step 4: checks to see if the withdrawal is refused if the funds are not sufficient. All those tests passed.
+void testWithdraw() {
+        Account1.setWithdrawLimit(2);
+        Account1.setWithdrawFee(12.0);
+       // Step 1:
+        Account1.deposit(250.0);
+        assertEquals(true,Account1.withdraw(250.0));
+        assertEquals(1, Account1.getWithdrawCounter());
+
+        // step 2:
+        Account1.deposit(251.0);
+        assertEquals(true,Account1.withdraw(250.0));
+        assertEquals(2, Account1.getWithdrawCounter());
+
+        // step3
+        Account1.deposit(270.0);
+        assertEquals(271, Account1.getBalance());
+        assertEquals(true,Account1.withdraw(250.0));
+        assertEquals(9.0,Account1.getBalance());
+        assertEquals(3, Account1.getWithdrawCounter());
+
+        // step 4:
+        Account1.deposit(20.0);
+        assertEquals(false,Account1.withdraw(250.0));
+
+10.WITHDRAW DRAFT:step1:checks to see if behaves like withdraw method when the amount withdrawn is equals to the balance
+step2:checks to see if behaves like withdraw method when the amount withdrawn is equals to the balance. step3:
+check to see if the Bounced check fee is deducted, even if the funds arent sufficient for that fee. Those tests passed.
+        //step1:
+        Account1.deposit(250.0);
+        assertEquals(true, Account1.withdrawDraft(250.0));
+
+        //step2
+        Account1.deposit(9.0);
+        Account1.setBouncedCheckFee(8.0);
+        assertEquals(false, Account1.withdrawDraft(50.0));
+        assertEquals(1,Account1.getBalance());
+
+        //step3
+        Account1.deposit(10.0);
+        Account1.setBouncedCheckFee(12.0);
+        assertEquals(false, Account1.withdrawDraft(50.0));
+        assertEquals(-1,Account1.getBalance());
+
+12.ATM WITHDRAW: the atm is supposed to charge the atmFee whenever the WithdrawAtm method is used. this test passed:
+void testWithdrawAtm() {
+        Account1.deposit(250.0);
+        Account1.setAtmFee(5.0);
+        Account1.withdrawAtm(240.0);
+        assertEquals(5.0, Account1.getBalance());
+
+13.INCREMENT DAY: step1: to test if the overdraft fee is charged,  set the balance lower than the minimum balance and
+test by returning the balance. checks if the getOverdraft flag works an returns a true value after the fee was charged.
+step2: to test whether the overdraft flag field if function works, we set it to true and run the method,the overdraft fee
+should not get charged again. step3: set the interest rate and set the balance higher
+than the minimum, and then have the balance be set to be 101,000.0 and the interest rate to 10.2. which returns a value
+of 101000.0*10.2/365=2822.465753424657. according to the dr java interactions pane. All those tests have passed.
+ void testIncrementDay() {
+        //step1:
+        Account1.deposit(200.0);
+        Account1.setMinimumBalance(250);
+        Account1.setOverDraftFee(20.0);
+        Account1.incrementDay();
+        assertEquals(180.0, Account1.getBalance());
+        assertEquals(true, Account1.getOverdraftFlag());
+
+        // step2:
+        Account1.incrementDay();
+        assertEquals(180.0, Account1.getBalance());
+
+        //step 3
+        //set the balance to 101,000.0
+        Account1.deposit(100820.0);
+        Account1.setInterestRate(10.2);
+        Account1.incrementDay();
+        assertEquals(2822.465753424657, Account1.getInterestEarned());
+
+14.INCREMENT MONTH: set the balance to 1000.0 and the interest rate to 10.0, then calculate what the interest earned is
+1000.0*10/365.0=27.3972602739725. Then deposits that interest earned to the account and the test checks if it was and if
+the overdraftFlag is set to false after the operation. Those test passed.
+  void testIncrementMonth() {
+         Account1.deposit(1000.0);
+         Account1.setInterestRate(10.0);
+         Account1.incrementDay();
+         Account1.incrementMonth();
+         assertEquals(0,Account1.getInterestEarned());
+         assertEquals(1027.3972602739725, Account1.getBalance());
+         assertEquals(false, Account1.getOverdraftFlag());
+     }
+ }
+
+15. CONSTRUCTOR: to test that constructor works we input "BankAccount Account2 = new BankAccount(2.5, 25, 10, 3.5, 20);"
+to test that the constructor works we test:
+void testConstructor(){
+        assertEquals(2.5, Account2.getInterestRate());
+        assertEquals(25, Account2.getMinimumBalance());
+        assertEquals(10, Account2.getOverDraftFee());
+        assertEquals(3.5, Account2.getAtmFee());
+        assertEquals(20, Account2.getBouncedCheckFee());
+        }
+this testing method passes.
+
+The class Bank account passes all the required tests of all its methods.
+
+
+////////// II.CREDIT CARD ACCOUNT   ///////////////////////////////////////////////////////////////////////
+
+To test this class, a testing class called CreditCardAccountTest will be created.
+first of all, an instance of the class should be created with the default constructor to set all the fields to zero and
+test the setter methods as well.
+    CreditCardAccount Card1 = new CreditCardAccount();
+
+1. CREDIT CARD LIMIT: to test if the get and set for this field works we set the limit to 1500 with setCreditCardLimit,
+and we test if the get retruns the same thing. this test passes.
+    void testBalance() {
+
+        Account1.deposit(500.0);
+        assertEquals(3500.0,Account1.getBalance());
+    }
+
+2.INTEREST RATE: we test the set and get by setting the value to 20 and testingn if the get method returns the same thing.
+this test passes:
+    void testInterestRate() {
+        Card1.setInterestRate(20);
+        assertEquals(20, Card1.getInterestRate());
+    }
+
+3. MIN MONThLY PAYMENT: we test the get and set function by set the minimum payment to 500 and checking if the get method
+returns the same. this test passes.
+    void testMinMonthlyPayment() {
+        Card1.setMinMonthlyPayment(500);
+        assertEquals(500, Card1.getMinMonthlyPayment());
+    }
+
+4.CHARGE/BALANCE: the same method will test the Charge method and getBalance method. when an amount is charged, it
+should be added to the balance, and be returned in the getBalance method. If the charged amount is higher than the
+balance + charge then it returns false and nothing is added to the balance. This test passed:
+    void testChargeBalance() {
+        Card1.setCreditLimit(1500);
+        Card1.charge(1400);
+        assertEquals(1400,Card1.getBalance());
+        assertFalse(Card1.charge(200));
+        assertEquals(1400,Card1.getBalance());
+    }
+
+5.PAYMENT: to test the payment method, we set a credit limit to be able to charge an amount to the card. we charge 500,
+we then pay back 400 of it using the Payment method. we check that it was paid back using getBalance which should the
+amount charged - payment. We also check that the payment was accounted for on the paid back field with the getPaid back
+method. this test passed.
+    void testPayment() {
+        Card1.setCreditLimit(1000);
+        Card1.charge(500);
+        Card1.payment(400);
+        assertEquals(100, Card1.getBalance());
+        assertEquals(400, Card1.getPaidBack());
+    }
+
+6.INCREMENT DAY: we set the limit to 1000 to be able to borrow 500, while setting the interest rate at 20%, the Paid in
+ full flag is set to false by default. so the the increment day is going to calculate the interest.
+ 500.0 * 20.0/365.0=27.397260273972602. which is what the method returns according to the test that passed.
+     void testIncrementDay() {
+            Card1.setCreditLimit(1000);
+            Card1.charge(500);
+            Card1.setInterestRate(20);
+            Card1.incrementDay();
+            assertEquals(27.397260273972602,Card1.getInterests());
+     }
+7.INCREMENT MONTH/ late payment/monthly payment: to check that the method works we need to set a credit limit(1000) and charge some money from the card.
+set an interrest rate(20) and a minimum payment(20). we run the incrment day method to generate interest which will be
+arround 27.39 according to test n°6. after that we pay back 400 from the balance which is now 100. since the paidback is
+higher than the minimum payment no late fee should be charged. we run the increment month method which should add the
+27.39 to the balance. we also check if the monthly payment is now equal to the balance of the account and we test if
+that is correct with this test. It passed
+
+Card1.setCreditLimit(1000);
+        Card1.charge(500);
+        // set the interest rate
+        Card1.setInterestRate(20);
+        // to generate interest we run IncrementDay, which gives us an interest of  27.397260273972602
+        Card1.incrementDay();
+        Card1.payment(400);
+        Card1.setMinMonthlyPayment(20);
+        // call the Increment Month method which will transfer the interest to the balance but not charge the late fee.
+        Card1.incrementMonth();
+        assertEquals(127.397260273972602, Card1.getBalance());
+        assertEquals(Card1.getBalance(),Card1.getMonthlyPayment());
+        Card1.payment(127.397260273972602);
+        Card1.incrementMonth();
+        assertTrue(isPaidInFullFlag());
+
+Second test when the minimum payment is higher than the paid back amount, which should also add a late payment fee to the
+balance. the balance should now be 127.39+10= 137.39, which is the balance now according to the test.
+void testIncrementMonth2() {
+        //sets the limit to be able to borrow 500.
+        Card1.setPaidBack(0);
+        Card1.setCreditLimit(1000);
+        Card1.charge(500);
+        // set the interest rate
+        Card1.setInterestRate(20);
+        // to generate interest we run IncrementDay, which gives us an interest of  27.397260273972602
+        Card1.incrementDay();
+        Card1.payment(400);
+        Card1.setLatePaymentPenalty(10);
+        Card1.setMinMonthlyPayment(401);
+        Card1.incrementMonth();
+        assertEquals(137.39726027397262, Card1.getBalance());
+    }
+
+8. CONSTRUCTOR:
+the default constructor is the one that we called the instance Card1 with and it works.
+the second constructor is supposed to take 4 inputs: the credit limit whip we will set to 1000. the interest rate:25.
+the minimum payment to make monthly:100. and the late penalty fee which will be 25.
+those values are tested using this method: (passed)
+
+ void testConstructor(){
+        assertEquals(1000, Card2.getCreditLimit());
+        assertEquals(20.0, Card2.getInterestRate());
+        assertEquals(100, Card2.getMinMonthlyPayment());
+        assertEquals(25, Card2.getLatePaymentPenalty());
+    }
+
+////////// III.ACCOUNT  ///////////////////////////////////////////////////////////////////////
+
+To test this class we will create a testing document for it.
+First of all, an instance of that class has to be created to test this class, there is only one constructor for this
+class and it takes 6 imputs, the first and last name, the adress and zip code and the day and month for the date.
+Account Account1 = new Account("Omar", "Loudghiri", " 11331 Juniper Road, Cleveland",
+        "44106", 11, 1);
+
+to test that the constructor works we will use the get fucntions for all those fields and test that both the set and get
+function works here.
+
+1. first and last name:
+we used the setter method on them using the constructor, so first should be "Omar" and last should be "Loudghiri"
+
+ we test that using those two testing method that passed the test
+    void getFirstName() {
+         assertEquals("Omar", Account1.getFirstName());
+
+    void getLastName() {
+         assertEquals("Loudghiri", Account1.getLastName());
+
+2. street address and zipcode: we used the setter method for those two field when we called the constructor.
+so the street address should be :"11331 Juniper Road, Cleveland" and the zipcode should be: "44106"
+we test that using those methods which pass.
+  void getStreetAddress() {
+        assertEquals("11331 Juniper Road, Cleveland", Account1.getStreetAddress());
+    }
+
+    void getZipCode() {
+        assertEquals("44106", Account1.getZipCode());
+        }
+
+3. Date: the constructor has created a new date by calling the function setDate. the date of Account1 should be of type
+Date, when inputting Account.getDate, the result is: "today is: 1/11" which is the return value of the toString method
+of the class Date.
+we can test that the get function works by writing this method:
+            assertEquals("today is: 1/11", Account1.getDate());
+    However, this test does not pass in IntelliJ because the address of the expected and actual value are different.
+    Although they return the same string value. the get method works, in the sense that it returns the value expected.
+    so the test on DrJAva works
+
+4. SavingsAccount / Checking / MoneyMarket / Credit : to test this method, we create a new account of type bank account
+ for Savings and Checking and MoneyMarket. And create a new account of type CreditCardAccount and assign them to their
+ respective accounts using the setter method. afterwards we test that they have the same address writing those four methods:
+
+      void getSavingsAccount() {
+          BankAccount Account1_saving = new BankAccount();
+          Account1.setSavingsAccount(Account1_saving);
+          assertEquals("BankAccount@7d70d1b1" ,Account1.getSavingsAccount());
+      }
+
+      void getCheckingAccount() {
+          BankAccount Account1_Checking = new BankAccount();
+          Account1.setCheckingAccount(Account1_Checking);
+          assertEquals("BankAccount@7d70d1b1" ,Account1.getCheckingAccount());
+      }
+
+      void getMoneyMarketAccount() {
+          BankAccount Account1_Market = new BankAccount();
+          Account1.setMoneyMarketAccount(Account1_Market);
+          assertEquals("BankAccount@7d70d1b1" ,Account1.getMoneyMarketAccount());
+      }
+
+       void getCreditCardAccount() {
+              CreditCardAccount Account1_Credit = new CreditCardAccount();
+              Account1.setCreditCardAccount(Account1_Credit);
+              assertEquals("CreditCardAccount@7d70d1b1" ,Account1.getCreditCardAccount());
+          }
+
+
+    those methods do not pass on IntelliJ but the DrJava test of having it return the same value does work and therefore
+    the methods perform the function asked for.
+
+5. Increment Day: to test this method we create a checking account of type BankAccount with a balance that is lower
+ than the minimum so increment day withdraws the overdraft fee.
+ We also create an instance of a CreditCardAccount and charge it an ammount of money to check the interests earned.
+ we also check if the date is now changed and all those tests below passed.
+
+    void testIncrementDay() {
+          // checking account of type BankAccount with a balance that is lower than the minimum so increment day withdraws
+          //overdraft fee
+          // we also set the date as such as if we call increment day twice it also calls increment month
+          Account1.setDate(30,3);
+          BankAccount Account1_Checking = new BankAccount(2.5, 250, 20, 3.5, 20);;
+          Account1.setCheckingAccount(Account1_Checking);
+          Account1_Checking.deposit(200);
+
+          //Credit card of type credit card account
+          CreditCardAccount Account1_Credit = new CreditCardAccount(1000, 20.0, 100, 25 );;
+          Account1.setCreditCardAccount(Account1_Credit);
+          Account1_Credit.charge(800);
+
+          Account1.incrementDay();
+          assertEquals("today is: 3/31", Account1.getDate() );
+          assertEquals(180,Account1_Checking.getBalance());
+          assertEquals(43.83561643835616, Account1_Credit.getInterests());
+    }
+
+6. Increment month: to check that increment month part of increment day was run we run increment day again while the date
+is 3/31 so it adds a day and become 4/1. we also need to check that interests earned by the BankAccount are added to the balance
+and that interests that were accumulated by the credit card are charged to it and added to the balance due.
+those tests check for it and return true.
+
+ Account1_Checking.setMinimumBalance(10);
+        // now check that if the month changes increment month is executed too.
+
+        Account1.incrementDay();
+        // check that interests and the late payment penalty were both added to the balance
+        assertEquals(915.0731844623757, Account1_Credit.getBalance());
+        assertEquals(181.23287671232876, Account1_Checking.getBalance());
+        assertEquals( "today is: 4/1", Account1.getDate());
+
+7. Equals: we create another instance of Account that has the exact same name and address and compare it and it should
+return true and this test passed. we also make an other instance that is not equal to account1 to see if it returns false
+       void testEquals() {
+            Account Account2 = new Account("Omar", "Loudghiri", " 11331 Juniper Road, Cleveland",
+                    "44106", 11, 1);
+            assertTrue( Account1.equals(Account2));
+            // we then make a different account
+                    Account Account3 = new Account("Jen", "Foster", " Cornell Road, Cleveland",
+                            "44106", 11, 1);
+                    assertFalse(Account1.equals(Account3));
+
+        }
+8.ToString: to test this method we will be using the constructor's inputs, so the toString method should return Omar Loudghiri
+,//// adress/// and the account we created. to test it I have created one Checking account and one credit card account
+and added the balance. so the test method is: which returns true.
+ BankAccount Account1_Checking = new BankAccount();
+        Account1.setCheckingAccount(Account1_Checking);
+        Account1_Checking.deposit(200);
+        CreditCardAccount Account1_Credit = new CreditCardAccount();;
+        Account1.setCreditCardAccount(Account1_Credit);
+        Account1_Credit.setCreditLimit(1000);
+        Account1_Credit.charge(800);
+
+assertEquals("Omar Loudghiri  11331 Juniper Road, Cleveland 44106Checking: 200.0 Credit Card: 800.0 ",Account1.toString());
+    }
+
+
+ ////////// IV.Date  ///////////////////////////////////////////////////////////////////////
+
+to test this class we first need to create an instance of the class, we will set the day to be 11 and the month to be 12.
+Date date1 = new Date(11,12);
+
+1. get day and get month: the getter methods should return what we input in the constructor and these test method should
+return true: and the test passes
+assertEquals(11, date1.getDay());
+
+assertEquals(12, date1.getMonth());
+
+
+2. increment day: first we test it on a normal day without month implenetation And then we need to test all the
+possiblities of when we change the month, so we need a month that has 31 days, on that has 30 and then february,
+ all of them on their last. this method should cover the 4 possbilities and it passes
+ void testIncrementDay() {
+         date1.incrementDay();
+         assertEquals(12, date1.getDay());
+
+         // to test all the other sittuations:
+         // when the month has 31 days and it it is the 31st day and we add one
+         Date date2 = new Date(31, 3);
+         date2.incrementDay();
+         assertEquals(4,date2.getMonth());
+         assertEquals(1,date2.getDay());
+
+         //when the month has 30 days  and it is the 30th day and we add one
+         Date date3 = new Date(30, 4);
+         date3.incrementDay();
+         assertEquals(5, date3.getMonth());
+         assertEquals(1,date3.getDay());
+
+         // when it is february and it is the 29th day
+         Date date4 = new Date(29, 2);
+         date4.incrementDay();
+         assertEquals(3, date4.getMonth());
+         assertEquals(1,date4.getDay());
+     }
+
+3.test Equals:
+to test this class we need to create an other instance of the type Date that has the exact same day and month of date1
+and the check that equals return true, we also check that if we add one day to date2 then it is not equal anymore and that
+test passes.
+
+ void testEquals() {
+        // we know that date1 is 12/11, let's make another date2 that has the same values
+       Date date2 = new Date(11, 12);
+               assertTrue(date1.equals(date2));
+               date2.incrementDay();
+               assertFalse(date1.equals(date2));
+    }
+4. ToString:
+to test this method we use it on date1 and it should return "today is: 12/11" and the test passes
+ void testToString() {
+        assertEquals("today is: 12/11", date1.toString());
+    }
+
+
+
+
+
+
